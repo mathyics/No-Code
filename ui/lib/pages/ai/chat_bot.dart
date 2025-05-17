@@ -3,6 +3,8 @@
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:no_code/Utils/show_toast.dart';
 import 'package:no_code/controllers/auth_controllers/auth_methods.dart';
 
 
@@ -94,9 +96,21 @@ class _AiChatAppState extends State<AiChatApp> {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
             child: Row(
               children: [
-                Icon(Icons.mic),
+                GestureDetector(child: Icon(Icons.mic),
+                onTap: ()async{
+                  showToast('Your voice will be recorded...', Colors.blue);
+                  await Future.delayed(Duration(seconds: 3));
+                  showToast('Your voice was  recorded...', Colors.blue);
+
+                },
+                ),
                 SizedBox(width: 23,),
-                Icon(Icons.camera_alt),
+                GestureDetector(child: Icon(Icons.camera_alt),
+                  onTap: (){
+                    final imgPicker=ImagePicker();
+                    imgPicker.pickImage(source: ImageSource.gallery);
+                  },
+                ),
                 SizedBox(width: 23,),
                 Expanded(
                   child: TextField(
