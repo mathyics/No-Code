@@ -53,7 +53,6 @@ import { userRouter } from "./routes/_01_user.routes.js"
 app.use('/api/users',userRouter);
 
 
-import { videoRouter } from "./routes/_02_video.routes.js"
-app.use('/api/videoService',videoRouter);
+
 
 export {app}

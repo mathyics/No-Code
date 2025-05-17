@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { registerUser,loginUser, logoutUser, refreshAccessToken, updatePassword, updateFullName, updateUserAvatar, updateUserCoverImage, getChannelInfo, getWatchHistory } from "../controller/_01_user.controller.js"
+import { registerUser,loginUser, logoutUser, refreshAccessToken, updatePassword, updateFullName} from "../controller/_01_user.controller.js"
 import {upload} from "../middleware/_01_multer.middle_ware.js"
 import { verifyJWT } from "../middleware/_02_auth.middleware.js";
 
@@ -9,18 +9,18 @@ const userRouter=Router()
 userRouter
 .route( '/register')
 .post(
-    upload.fields(//middle ware, before registering pls add fields called avatar and coverImage in request, so that we can access later like req.body.avatar[0].path
-        [
-            {
-                name:"avatar",
-                maxCount:1,
-            },
-            {
-                name:"coverImage",
-                maxCount:1,
-            }
-        ]
-    ),
+    // upload.fields(//middle ware, before registering pls add fields called avatar and coverImage in request, so that we can access later like req.body.avatar[0].path
+    //     [
+    //         {
+    //             name:"avatar",
+    //             maxCount:1,
+    //         },
+    //         {
+    //             name:"coverImage",
+    //             maxCount:1,
+    //         }
+    //     ]
+    // ),
     registerUser
 );
 
@@ -58,20 +58,7 @@ route('/updateFullName')
     verifyJWT,updateFullName
 )
 
-userRouter.put("/updateAvatar", verifyJWT, upload.single("avatar"), updateUserAvatar);
-userRouter.put("/updateCoverImage", verifyJWT, upload.single("coverImage"), updateUserAvatar);
-
-userRouter
-.route('/getChannelInfo/:userName')
-.post(
-    getChannelInfo
-)
 
 
-userRouter
-.route('/getWatchHistory')
-.get(
-    verifyJWT,getWatchHistory
-)
 
 export {userRouter}
