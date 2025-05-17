@@ -1,12 +1,10 @@
-// import 'dart:nativewrappers/_internal/vm/lib/typed_data_patch.dart';
-
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+
 import 'package:no_code/Utils/show_toast.dart';
 import 'package:no_code/controllers/auth_controllers/auth_methods.dart';
-
-
 
 class AiChatApp extends StatefulWidget {
   const AiChatApp({super.key});
@@ -18,7 +16,7 @@ class AiChatApp extends StatefulWidget {
 class _AiChatAppState extends State<AiChatApp> {
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  final AuthController c=Get.find();
+  final AuthController c = Get.find();
   final List<_ChatMessage> _messages = [];
   bool _loading = false;
 
@@ -27,7 +25,7 @@ class _AiChatAppState extends State<AiChatApp> {
     if (text.isEmpty || _loading) return;
 
     setState(() {
-      _messages.add(_ChatMessage(text, isUser: true));
+      _messages.add(_ChatMessage(text, isUser: true, isMarkdown: false));
       _controller.clear();
       _loading = true;
     });
@@ -35,13 +33,30 @@ class _AiChatAppState extends State<AiChatApp> {
     _scrollToBottom();
 
     final response = await getResponse(text);
+    final markdownResponse = formatAIResponseToMarkdown(response);
 
     setState(() {
-      _messages.add(_ChatMessage(response, isUser: false));
+      _messages.add(_ChatMessage(markdownResponse, isUser: false, isMarkdown: true));
       _loading = false;
     });
 
     _scrollToBottom();
+  }
+
+  String formatAIResponseToMarkdown(String raw) {
+    String cleaned = raw
+        .replaceAll(r'\"', '"')
+        .replaceAll(r'\n\n', '\n\n')
+        .replaceAll(r'\n', '\n')
+        .trim();
+
+    cleaned = cleaned.replaceAllMapped(RegExp(r'(?<=^|\n)(.*?)(:)', dotAll: true), (match) {
+      return '**${match[1]?.trim()}**${match[2]}';
+    });
+
+    cleaned = cleaned.replaceAll('- ', '\n- ');
+
+    return cleaned;
   }
 
   void _scrollToBottom() {
@@ -55,7 +70,7 @@ class _AiChatAppState extends State<AiChatApp> {
   }
 
   Future<String> getResponse(String prompt) async {
-    final  res=await c.getAPIRes(context, prompt);
+    final res = await c.getAPIRes(context, prompt);
     return res.toString();
   }
 
@@ -72,19 +87,17 @@ class _AiChatAppState extends State<AiChatApp> {
               itemBuilder: (context, index) {
                 final msg = _messages[index];
                 return Align(
-                  alignment: msg.isUser
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
+                  alignment: msg.isUser ? Alignment.centerRight : Alignment.centerLeft,
                   child: Container(
                     margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: msg.isUser
-                          ? Colors.blue[200]
-                          : Colors.grey[300],
+                      color: msg.isUser ? Colors.blue[200] : Colors.grey[300],
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Text(msg.text),
+                    child: msg.isMarkdown
+                        ? MarkdownBody(data: msg.text)
+                        : Text(msg.text, style: const TextStyle(fontSize: 16)),
                   ),
                 );
               },
@@ -95,22 +108,24 @@ class _AiChatAppState extends State<AiChatApp> {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
             child: Row(
               children: [
-                GestureDetector(child: Icon(Icons.mic),
-                onTap: ()async{
-                  showToast('Your voice will be recorded...', Colors.blue);
-                  await Future.delayed(Duration(seconds: 3));
-                  showToast('Your voice was  recorded...', Colors.blue);
-
-                },
-                ),
-                SizedBox(width: 23,),
-                GestureDetector(child: Icon(Icons.camera_alt),
-                  onTap: (){
-                    final imgPicker=ImagePicker();
-                    imgPicker.pickImage(source: ImageSource.gallery);
+                GestureDetector(
+                  child: const Icon(Icons.mic),
+                  onTap: () async {
+                    showToast('Your voice will be recorded...', Colors.blue);
+                    await Future.delayed(const Duration(seconds: 3));
+                    showToast('Your voice was recorded...', Colors.green);
                   },
                 ),
-                SizedBox(width: 23,),
+                const SizedBox(width: 23),
+                GestureDetector(
+                  child: const Icon(Icons.camera_alt),
+                  onTap: () async {
+                    final imgPicker = ImagePicker();
+                    await imgPicker.pickImage(source: ImageSource.gallery);
+                    showToast('Image picked (handle it as needed)', Colors.orange);
+                  },
+                ),
+                const SizedBox(width: 23),
                 Expanded(
                   child: TextField(
                     controller: _controller,
@@ -123,7 +138,7 @@ class _AiChatAppState extends State<AiChatApp> {
                 ),
                 IconButton(
                   icon: _loading
-                      ? const CircularProgressIndicator()
+                      ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
                       : const Icon(Icons.send),
                   onPressed: _sendMessage,
                 ),
@@ -139,6 +154,7 @@ class _AiChatAppState extends State<AiChatApp> {
 class _ChatMessage {
   final String text;
   final bool isUser;
+  final bool isMarkdown;
 
-  _ChatMessage(this.text, {required this.isUser});
+  _ChatMessage(this.text, {required this.isUser, required this.isMarkdown});
 }
