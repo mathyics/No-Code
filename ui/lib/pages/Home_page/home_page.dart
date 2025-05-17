@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: get_app_bar('AI Health Hub', true),
+      appBar: get_app_bar('Home', true),
       endDrawer: get_end_drawer(context),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             // Features Grid Section
             const Text(
-              'AI for Healthcare Features',
+              'MediAI Features',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
