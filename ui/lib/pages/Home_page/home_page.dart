@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             // Features Grid Section
             const Text(
-              'MediAI Features',
+              'MediscanAI Features',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),

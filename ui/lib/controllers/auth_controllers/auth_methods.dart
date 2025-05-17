@@ -207,10 +207,8 @@ class AuthController extends GetxController{
              'authorization': 'Bearer $my_ref_token'
            });
 
-       if(ResponseHandler.is_good_response(res, context)){
-         print("${res.body.toString()} helo world");
+         // print("${res.body.toString()} helo world");
          return res.body.toString();
-       }
      }on Exception catch(e){
        HttpExceptionHandler.handle(e, context);
      }
