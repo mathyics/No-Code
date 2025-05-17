@@ -61,18 +61,7 @@ route('/updateFullName')
 userRouter.put("/updateAvatar", verifyJWT, upload.single("avatar"), updateUserAvatar);
 userRouter.put("/updateCoverImage", verifyJWT, upload.single("coverImage"), updateUserAvatar);
 
-userRouter
-.route('/getChannelInfo/:userName')
-.post(
-    getChannelInfo
-)
 
-
-userRouter
-.route('/getWatchHistory')
-.get(
-    verifyJWT,getWatchHistory
-)
 
 userRouter
 .route("/getAPIRes")

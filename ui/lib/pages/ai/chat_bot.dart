@@ -1,7 +1,6 @@
 // import 'dart:nativewrappers/_internal/vm/lib/typed_data_patch.dart';
 
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:no_code/Utils/show_toast.dart';
