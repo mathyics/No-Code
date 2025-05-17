@@ -7,6 +7,7 @@ import { get_refresh_access_token } from "../Utils/_07_token_generator.utils.js"
 import { v2 as cloudinary } from "cloudinary"
 import { Video } from "../models/_02_video.model.js";
 import mongoose from "mongoose";
+
 /*
 user schema:
  userName: {
@@ -51,6 +52,31 @@ user schema:
             type: String
         }
 */
+app.post('/api/langflow', async (req, res) => {
+  const userInput = req.body.input;
+
+  try {
+    const response = await fetch('https://api.langflow.astra.datastax.com/lf/eb8646fb-f3bd-497f-9698-3728c8d151eb/api/v1/run/755d74b0-6622-48db-bff8-4679736df514', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.REACT_APP_LANGFLOW}`,
+      },
+      body: JSON.stringify({
+        input_value: userInput,
+        input_type: 'chat',
+        output_type: 'chat',
+        session_id: 'user_1'
+      }),
+    });
+
+    const data = await response.json();
+    res.json(data.outputs?.[0]?.outputs?.[0]?.outputs?.message?.message);
+  } catch (error) {
+    console.error('Langflow API error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 const registerUser = asyncHandler(
     //steps: getAsJson->validate->checkIfAlreadyExists->ifNotThenTakeAvatar->UploadToCLpudinary->PutInMongoose
