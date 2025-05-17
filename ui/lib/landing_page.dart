@@ -51,35 +51,7 @@ class _Landing_pageState extends State<Landing_page> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[currPageIdx],
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 8,
-        elevation: 10,
-        child: SizedBox(
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              navIcon(Icons.home, 0, 'Home'),
-              navIcon(Icons.video_library_outlined, 1, 'Shorts'),
-              const SizedBox(width: 40),
-              navIcon(Icons.subscriptions_outlined, 2, 'Subscriptions'),
-              navIcon(Icons.person_outline, 4, 'Channel'),
-            ],
-          ),
-        ),
-      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blueAccent,
-        elevation: 6,
-        tooltip: 'Create Content!',
-        onPressed: () {
-          onChange(3); // Navigate to create page
-          print(contr.getAPIRes(context, "i have rashes"));
-        },
-        child: const Icon(Icons.add, size: 34),
-      ),
     );
   }
 

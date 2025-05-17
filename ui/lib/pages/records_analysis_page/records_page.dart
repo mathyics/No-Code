@@ -50,31 +50,34 @@ class _RecordsAnalysisPageState extends State<RecordsAnalysisPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Row(
-              children: [
-                ElevatedButton.icon(
-                  onPressed: _pickDateRange,
-                  icon: const Icon(Icons.date_range),
-                  label: Text(_selectedRange == null
-                      ? 'Select Date Range'
-                      : '${_selectedRange!.start.month}/${_selectedRange!.start.day} - '
-                      '${_selectedRange!.end.month}/${_selectedRange!.end.day}'),
-                ),
-                const SizedBox(width: 16),
-                ElevatedButton.icon(
-                  onPressed: () => setState(() => _showChart = !_showChart),
-                  icon: Icon(_showChart ? Icons.table_chart : Icons.show_chart),
-                  label: Text(_showChart ? 'Show Table' : 'Show Chart'),
-                ),
-                const Spacer(),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    // TODO: Implement export CSV functionality
-                  },
-                  icon: const Icon(Icons.file_download),
-                  label: const Text('Export'),
-                ),
-              ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: _pickDateRange,
+                    icon: const Icon(Icons.date_range),
+                    label: Text(_selectedRange == null
+                        ? 'Select Date Range'
+                        : '${_selectedRange!.start.month}/${_selectedRange!.start.day} - '
+                        '${_selectedRange!.end.month}/${_selectedRange!.end.day}'),
+                  ),
+                  const SizedBox(width: 16),
+                  ElevatedButton.icon(
+                    onPressed: () => setState(() => _showChart = !_showChart),
+                    icon: Icon(_showChart ? Icons.table_chart : Icons.show_chart),
+                    label: Text(_showChart ? 'Show Table' : 'Show Chart'),
+                  ),
+                  const SizedBox(width: 16),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      // TODO: Implement export CSV functionality
+                    },
+                    icon: const Icon(Icons.file_download),
+                    label: const Text('Export'),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 16),
             Expanded(
@@ -106,7 +109,8 @@ class _RecordsAnalysisPageState extends State<RecordsAnalysisPage> {
             ),
           ],
         ),
-      ),
+      )
+
     );
   }
 }

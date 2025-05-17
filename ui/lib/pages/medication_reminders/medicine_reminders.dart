@@ -83,18 +83,22 @@ class _MedicationRemindersPageState extends State<MedicationRemindersPage> {
                   '${medicineNames[index]} - ${['Morning', 'Afternoon', 'Night'][index]}',
                 ),
                 subtitle: Text('Time: ${_formatTime(reminderTimes[index])}'),
-                trailing: Column(
-                  mainAxisSize: MainAxisSize.min,
+                trailing: Wrap(
                   children: [
-                    Switch(
-                      value: reminders[index],
-                      onChanged:
-                          (val) => setState(() => reminders[index] = val),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.edit, size: 20),
-                      onPressed: () => _editMedicineName(index),
-                      tooltip: 'Edit Name',
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Switch(
+                          value: reminders[index],
+                          onChanged:
+                              (val) => setState(() => reminders[index] = val),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.edit, size: 20),
+                          onPressed: () => _editMedicineName(index),
+                          tooltip: 'Edit Name',
+                        ),
+                      ],
                     ),
                   ],
                 ),

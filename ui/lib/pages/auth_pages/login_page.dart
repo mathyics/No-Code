@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:http/http.dart' as http;
 
 import '../../constants/routes.dart';
 import '../../controllers/auth_controllers/auth_methods.dart';
@@ -80,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Icon(
-                            Icons.animation,
+                            Icons.lock,
                             color: Colors.blue,
                             size: 44.0,
                           ),
