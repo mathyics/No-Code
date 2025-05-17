@@ -17,7 +17,7 @@ const registerUser = asyncHandler(
         const { userName, fullName, email, password,contact } = req.body;
         console.log(`recived body for post method register: ${JSON.stringify(req.body)}`);
 
-        //step1: validate if feilds r not empty
+        //step1: validate if feilds r not emptyies
         if (
             [userName, fullName, email, password,contact]
                 .some(

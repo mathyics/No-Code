@@ -1,5 +1,5 @@
 {
-  "name": "repo37-flutter_starter",
+  "name": "mediscan-ai",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
@@ -7,10 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/index.js"
   },
-  "keywords": [],
+  "keywords": ["ai", "healthcare", "mediscan"],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "AI-powered health assistant that analyzes symptoms through text, voice, and images",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.6.0",
@@ -22,7 +22,10 @@
     "mongoose": "^8.13.2",
     "mongoose-aggregate-paginate-v2": "^1.1.4",
     "multer": "^1.4.5-lts.2",
-    "repo37-flutter_starter": "file:",
+    "openai": "^4.28.0",
+    "@huggingface/inference": "^2.6.4",
+    "sharp": "^0.33.2",
+    "node-fetch": "^3.3.2",
     "urlencode": "^2.0.0"
   },
   "devDependencies": {
