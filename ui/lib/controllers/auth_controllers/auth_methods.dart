@@ -194,4 +194,27 @@ class AuthController extends GetxController{
     }
     return false;
   }
+
+
+  Future<String>getAPIRes(BuildContext context,String input)async{
+     try{
+       var url=Uri.http(main_uri,'/api/users/getAPIRes');
+       // log('logout out using ref token: $my_ref_token');
+       var res=await http.post(url,
+           body: {'input':input},
+           headers:
+           {
+             'authorization': 'Bearer $my_ref_token'
+           });
+
+       if(ResponseHandler.is_good_response(res, context)){
+         print("${res.body.toString()} helo world");
+         return res.body.toString();
+       }
+     }on Exception catch(e){
+       HttpExceptionHandler.handle(e, context);
+     }
+     return "Server is down pls try again later!";
+  }
+
 }

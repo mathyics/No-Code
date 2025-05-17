@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { registerUser,loginUser, logoutUser, refreshAccessToken, updatePassword, updateFullName, updateUserAvatar, updateUserCoverImage, getChannelInfo, getWatchHistory } from "../controller/_01_user.controller.js"
+import { registerUser,loginUser, logoutUser, refreshAccessToken, updatePassword, updateFullName, updateUserAvatar, updateUserCoverImage, getChannelInfo, getWatchHistory, getAPIRes } from "../controller/_01_user.controller.js"
 import {upload} from "../middleware/_01_multer.middle_ware.js"
 import { verifyJWT } from "../middleware/_02_auth.middleware.js";
 
@@ -72,6 +72,13 @@ userRouter
 .route('/getWatchHistory')
 .get(
     verifyJWT,getWatchHistory
+)
+
+userRouter
+.route("/getAPIRes")
+.post(
+    verifyJWT,
+    getAPIRes
 )
 
 export {userRouter}

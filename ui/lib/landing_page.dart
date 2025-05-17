@@ -1,6 +1,8 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:no_code/pages/Channel/channel_details.dart';
 import 'package:no_code/pages/Create/content_create.dart';
 import 'package:no_code/pages/Home_page/home_page.dart';
@@ -8,6 +10,7 @@ import 'package:no_code/pages/Subscriptions/subscription_page.dart';
 import 'package:no_code/pages/shorts_page/shorts.dart';
 
 import 'constants/routes.dart';
+import 'controllers/auth_controllers/auth_methods.dart';
 
 
 
@@ -28,6 +31,8 @@ class _Landing_pageState extends State<Landing_page> {
     });
   }
 
+
+  final AuthController contr = Get.find();
   late final List<Widget> pages;
 
   @override
@@ -71,6 +76,7 @@ class _Landing_pageState extends State<Landing_page> {
         tooltip: 'Create Content!',
         onPressed: () {
           onChange(3); // Navigate to create page
+          print(contr.getAPIRes(context, "i have rashes"));
         },
         child: const Icon(Icons.add, size: 34),
       ),
