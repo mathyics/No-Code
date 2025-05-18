@@ -68,16 +68,6 @@ A full-stack AI-powered healthcare platform with a Flutter frontend and Node.js/
 - **Settings**  
   Toggle dark mode, background play, and language preferences.
 
-### Doctor/Channel Features
-
-- **Channel Management**  
-  View and edit channel details, including avatar, cover image, and subscriber statistics.
-
-- **Content Creation**  
-  Upload videos and educational content, manage hashtags, and track engagement.
-
-- **Subscriptions**  
-  Subscribe to channels, view subscriber counts, and manage your own subscriptions.
 
 ---
 
