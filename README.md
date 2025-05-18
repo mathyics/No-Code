@@ -176,14 +176,6 @@ no_code/
 - **User** ([`_01_user.model.js`](server/src/models/_01_user.model.js)):  
   Stores user info, avatar, cover image, watch history, password (hashed), and tokens.
 
-- **Video** ([`_02_video.model.js`](server/src/models/_02_video.model.js)):  
-  Stores video file URL, thumbnail, title, description, duration, views, owner, hashtags.
-
-- **Subscription** ([`_03_subscription.model.js`](server/src/models/_03_subscription.model.js)):  
-  Tracks which user subscribes to which channel.
-
-- **Likes & Comments** ([`_04_likes.model.js`](server/src/models/_04_likes.model.js), [`_05_comment.model.js`](server/src/models/_05_comment.model.js)):  
-  For video engagement and feedback.
 
 ### File Uploads & Cloudinary
 
